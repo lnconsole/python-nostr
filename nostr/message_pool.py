@@ -65,7 +65,7 @@ class MessagePool:
             )
             with self.lock:
                 if not event.id in self._unique_events:
-                    self.events.put(EventMessage(event, subscription_id, url))
+                    self.events.put_nowait(EventMessage(event, subscription_id, url))
                     self._unique_events.add(event.id)
         elif message_type == RelayMessageType.NOTICE:
             self.notices.put(NoticeMessage(message_json[1], url))
