@@ -1,5 +1,5 @@
 import json
-from queue import Queue
+from asyncio import Queue
 from threading import Lock
 from .message_type import RelayMessageType
 from .event import Event
@@ -31,8 +31,8 @@ class MessagePool:
     def add_message(self, message: str, url: str):
         self._process_message(message, url)
 
-    def get_event(self):
-        return self.events.get()
+    async def get_event(self):
+        return await self.events.get()
 
     def get_notice(self):
         return self.notices.get()
