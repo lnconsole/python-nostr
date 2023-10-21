@@ -1,5 +1,6 @@
 import json
 from asyncio import Queue
+from queue import Queue as SyncQueue
 from threading import Lock
 from .message_type import RelayMessageType
 from .event import Event
@@ -23,8 +24,8 @@ class EndOfStoredEventsMessage:
 class MessagePool:
     def __init__(self) -> None:
         self.events: Queue[EventMessage] = Queue()
-        self.notices: Queue[NoticeMessage] = Queue()
-        self.eose_notices: Queue[EndOfStoredEventsMessage] = Queue()
+        self.notices: Queue[NoticeMessage] = SyncQueue()
+        self.eose_notices: Queue[EndOfStoredEventsMessage] = SyncQueue()
         self._unique_events: set = set()
         self.lock: Lock = Lock()
     
